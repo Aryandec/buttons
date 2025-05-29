@@ -1,13 +1,12 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
-export default function ResultsPage() {
+function ResultsContent() {
   const searchParams = useSearchParams();
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    // Retrieve the count value from searchParams only on the client side
     const countValue = searchParams.get("count") || 0;
     setCount(countValue);
   }, [searchParams]);
@@ -19,7 +18,8 @@ export default function ResultsPage() {
           You think you will have {count} girlfriend(s)?
         </h1>
         <h2 className="text-2xl text-gray-600 mb-6">
-          Reality might be different 😢 <br /> This is the curse of this website!
+          Reality might be different 😢 <br /> This is the curse of this
+          website!
         </h2>
         <button
           className="btn btn-primary px-6 py-3 text-white font-bold rounded-lg shadow-md hover:bg-blue-600 transition duration-300"
@@ -29,5 +29,15 @@ export default function ResultsPage() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function ResultsPage() {
+  return (
+    <Suspense
+      fallback={<div className="text-white text-center mt-10">Loading...</div>}
+    >
+      <ResultsContent />
+    </Suspense>
   );
 }

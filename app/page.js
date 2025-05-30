@@ -1,14 +1,29 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [count, setCount] = useState(0);
+  const [buttonEmoji, setButtonEmoji] = useState("😏");
   const router = useRouter();
 
   const increment = () => setCount(count + 1);
   const decrement = () => setCount((count) => Math.max(0, count - 1));
   const reset = () => setCount(0);
+
+  useEffect(() => {
+    if (count === 0) {
+      setButtonEmoji("😏");
+    } else if (count >= 1 && count <= 3) {
+      setButtonEmoji("🤔");
+    } else if (count >= 4 && count <= 6) {
+      setButtonEmoji("😅");
+    } else if (count >= 7 && count <= 9) {
+      setButtonEmoji("🤨");
+    } else {
+      setButtonEmoji("🤣");
+    }
+  }, [count]);
 
   const navigateToResults = () => {
     router.push(`/results?count=${count}`);
@@ -34,7 +49,7 @@ export default function Home() {
             className="btn btn-info"
             onClick={() => document.getElementById("my_modal_5").showModal()}
           >
-            Check For Real
+            Check For Real {buttonEmoji}
           </button>
           <dialog
             id="my_modal_5"

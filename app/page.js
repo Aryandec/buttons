@@ -30,7 +30,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center h-screen bg-[#1a1a1a]">
       <div className="flex flex-col items-center gap-y-6">
         <h1 className="text-3xl font-bold text-white mb-6 text-center">
           How many girlfriends <br /> do you think you will have 😏
